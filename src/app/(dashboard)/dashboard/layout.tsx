@@ -6,6 +6,7 @@ import SignOutButton from '@/components/SignOutButton'
 import { getFriendsByUserId } from '@/helpers/get-friends-by-user-id'
 import { fetchRedis } from '@/helpers/redis'
 import { authOptions } from '@/lib/auth'
+import { SidebarOption } from '@/types/typings'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,13 +18,8 @@ interface LayoutProps {
 }
 
 
-interface SidebarOptions{
-        id: number,
-        name: string,
-        href: string,
-        Icon: Icon
-}
-const sidebarOptions : SidebarOptions[] = [
+
+const sidebarOptions : SidebarOption[] = [
         {
                 id: 1,
                 name: 'Add friend',
@@ -50,10 +46,14 @@ const  Layout = async ({children}:LayoutProps) => {
   return (
         <div className='w-full flex h-screen'>
 
-        {/* <div className='md:hidden'>
+        <div className='md:hidden'>
         <MobileChatLayout
+           friends={friends}
+           session={session}
+           sidebarOptions={sidebarOptions}
+           unseenRequestCount={unseenRequestCount}
         />
-      </div>  */}
+      </div> 
 
         <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6'>
         <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
